@@ -26,8 +26,8 @@ The `src/median_degree.java` uses the following three files with separate classe
 
 According to challenge request, the solution can be called with the script `run.sh`, which compiles the code, read `venmo_input/venmo-trans.txt` and output the result to `venmo_output/output.txt`. The `run.sh` content is as below:
 <pre>
-javac src/MedianCalculator.java src/PeriodGraph.java src/VemonTransParser.java src/median\_degree.java
-java src.median\_degree
+javac src/MedianCalculator.java src/PeriodGraph.java src/VemonTransParser.java src/median_degree.java
+java src.median_degree
 </pre>
 
 ##Dependency 
@@ -37,13 +37,13 @@ java src.median\_degree
 This solution only needs `javac` and `java` commands. So please make sure java-`version`-openjdk and java-`version`-oracle-devel packages are installed on the Linux system.
 This solution has been tested with 
 <pre>
-java-1.8.0-openjdk.x86\_64
-java-1.8.0-openjdk-devel.x86\_64
+java-1.8.0-openjdk.x86_64
+java-1.8.0-openjdk-devel.x86_64
 </pre>
 and
 <pre>
-java-1.7.0-openjdk.x86\_64
-java-1.7.0-openjdk-devel.x86\_64
+java-1.7.0-openjdk.x86_64
+java-1.7.0-openjdk-devel.x86_64
 </pre>
 
 ##Generate Test Cases
@@ -59,7 +59,7 @@ javac src/genTestCase.java
 
 To run:
 <pre>
-java src.genTestCase random\_number\_seed
+java src.genTestCase random_number_seed
 </pre>
 which requires you to input a seed as the argument and it generates a new file at `venmo_input/venmo-trans.txt`
 
