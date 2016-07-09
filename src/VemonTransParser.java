@@ -75,6 +75,7 @@ public class VemonTransParser {
 	 * returns the value field. The time complexity is O(m+n), where m and n
 	 * are the lengths of the JSON and pattern strings.
 	 * @return The matched the string in the value field
+	 * @throws ParseException in case of failed parsing
 	 */
 	private String getMatch( String json, String pattern ) throws ParseException{
 		int idxbrace = json.indexOf( '{' );

@@ -52,6 +52,7 @@ public class PeriodGraph {
 	 * @param actor The actor value field of the JSON string
 	 * @param target The target value field of the JSON string
 	 * @param time The time value field of the JSON string
+	 * @throws ParseException in case of invalid inputs: empty fileds, non-standard timestamp, same person transactions
 	 */
 	public void addTransaction( String actor, String target, String time ) throws ParseException {
 		// Check the validity of the inputs:
