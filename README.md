@@ -16,7 +16,7 @@ This solution is written in Java and contains two executables:
 - src.genTestCase: the test case generator, not used as part of the solution, but was useful in testing my code
 
 The `src/median_degree.java` uses the following three files with separate classes:
-- `src/MedianCalculator.class`: calculating the median of a data stream, with support of adding or removing elements operations
+- `src/MedianCalculator.java`: calculating the median of a data stream, with support of adding or removing elements operations
 - `src/PeriodGraph.java`: building and maintaining the transaction graph. It adds or removes graph vertice/edges according to the challenge request. It uses the `MedianCalculator` class to keep track of the current median value
 - `src/VemonTransParser.java`: a custom parser for the Venmo transaction JSON. This is only created to avoid using exotic libraries in this challenge, otherwise using a general JSON parser may be a more elegant implementation
 
