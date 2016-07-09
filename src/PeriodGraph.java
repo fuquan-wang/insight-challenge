@@ -53,16 +53,19 @@ public class PeriodGraph {
 	 * @param target The target value field of the JSON string
 	 * @param time The time value field of the JSON string
 	 */
-	public void addTransaction( String actor, String target, String time ){
+	public void addTransaction( String actor, String target, String time ) throws ParseException {
 		// Check the validity of the inputs:
 		// Empty fields will or same person transfers will not be counted
-		if( actor.length()==0 || target.length()==0 || time.length()==0 ) return;
+		if( actor.length()==0 || target.length()==0 || time.length()==0 ) 
+			throw new ParseException("At least one field is empty, no new output generated", 0);
 		if( actor.equals(target) ) {
 			System.out.println("Are you sure to send the money from "+actor+" to "+target+" (the same person)?");
-			return;
+			throw new ParseException("The actor and target fields are the same, no new output generated", 0);
 		}
 
 		long timeInSeconds = toSeconds(time);
+		if( timeInSeconds == (long)(-period) )
+			throw new ParseException("The create_time field is not in the format of yyyy-mm-ddTHH:MM:SSZ, no new output generated", 0);
 		if ( lastTime-timeInSeconds>=period ) return; // Do nothing if the new item is more than period seconds ago
 
 		// The graph is not undirected, so a connection is presented as a concatenated string

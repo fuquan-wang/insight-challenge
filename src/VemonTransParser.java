@@ -77,19 +77,26 @@ public class VemonTransParser {
 	 * @return The matched the string in the value field
 	 */
 	private String getMatch( String json, String pattern ) throws ParseException{
-		int idx = json.indexOf( pattern );
-		if( idx<0 ) {
-			throw new ParseException("Cannot find the pattern "+pattern+" in JSON string "+json, 0);
-		}
-		int idxlo = json.indexOf( '"', idx+pattern.length() );
-		if( idxlo<0 ) {
-			throw new ParseException("Cannot find a \" following "+pattern+" in JSON string "+json, idx);
-		}
-		int idxhi = json.indexOf( '"', idxlo+1 );
-		if( idxhi<0 ) {
-			throw new ParseException("Cannot find the second \" following "+pattern+" in JSON string "+json, idxlo);
-		}
+		int idxbrace = json.indexOf( '{' );
+		if( idxbrace<0 )
+			throw new ParseException("The JSON string does not has a starting {",0);
+		int idx = json.indexOf( pattern, idxbrace );
+		if( idx<0 )
+			throw new ParseException("Cannot find the pattern "+pattern+" in JSON string "+json, idxbrace);
+		int idxend = json.indexOf( ',', idx+pattern.length() );
+		if( idxend<0 )
+			idxend = json.indexOf( '}', idx+pattern.length() );
+		String str = json.substring( idx, idxend );
+		if( str.indexOf(':')<0 )
+			throw new ParseException("No valid semicolon separator "+" in JSON string "+json, idx);
 
-		return json.substring( idxlo+1, idxhi );
+		int idxlo = str.indexOf( '"', pattern.length() );
+		if( idxlo<0 ) 
+			throw new ParseException("Cannot find a \" following "+pattern+" in JSON string "+json, idx);
+		int idxhi = str.indexOf( '"', idxlo+1 );
+		if( idxhi<0 ) 
+			throw new ParseException("Cannot find the second \" following "+pattern+" in JSON string "+json, idxlo);
+
+		return str.substring( idxlo+1, idxhi );
 	}
 }

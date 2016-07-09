@@ -31,9 +31,13 @@ public class median_degree {
 			String line = null;
 			while ((line = reader.readLine()) != null) {
 				VemonTransParser vtp = new VemonTransParser(line);
-				graph.addTransaction( vtp.getActor(), vtp.getTarget(), vtp.getTime() );
-				writer.format( "%.2f", graph.getMedian() );
-				writer.println();
+				try{
+					graph.addTransaction( vtp.getActor(), vtp.getTarget(), vtp.getTime() );
+					writer.format( "%.2f", graph.getMedian() );
+					writer.println();
+				} catch (ParseException ex){
+					System.out.println("The JSON "+line+" cannot be parsed correctly, no new output");
+				}
 			}
 		} catch (IOException x) {
 			System.err.format("IOException: %s%n", x);
