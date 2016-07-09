@@ -34,7 +34,7 @@ java src.median_degree
 
 [Back to Table of Contents] (README.md#table-of-contents)
 
-This solution only needs `javac` and `java` commands. So please make sure java-`version`-openjdk and java-`version`-oracle-devel packages are installed on the Linux system.
+This solution only needs `javac` and `java` commands. So please make sure `java-version-openjdk` and `java-version-openjdk-devel` packages are installed on the Linux system.
 This solution has been tested with 
 <pre>
 java-1.8.0-openjdk.x86_64
