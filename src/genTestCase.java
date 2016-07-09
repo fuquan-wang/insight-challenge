@@ -53,17 +53,17 @@ public class genTestCase {
 			sb.append("\"created_time\": \"");
 
 			sb.append(cal.get(Calendar.YEAR)).append('-');
-			if( cal.get(Calendar.MONTH)>=10 ) sb.append(cal.get(Calendar.MONTH)).append('-');
-			else sb.append('0').append(cal.get(Calendar.MONTH)).append('-');
-			if( cal.get(Calendar.DAY_OF_MONTH)>=10 ) sb.append(cal.get(Calendar.DAY_OF_MONTH)).append('T');
-			else sb.append('0').append(cal.get(Calendar.DAY_OF_MONTH)).append('T');
+			if( cal.get(Calendar.MONTH)<10 ) sb.append('0');
+			sb.append(cal.get(Calendar.MONTH)).append('-');
+			if( cal.get(Calendar.DAY_OF_MONTH)<10 ) sb.append('0');
+			sb.append(cal.get(Calendar.DAY_OF_MONTH)).append('T');
 
-			if( cal.get(Calendar.HOUR)>=10 ) sb.append(cal.get(Calendar.HOUR)).append(':');
-			else sb.append('0').append(cal.get(Calendar.HOUR)).append(':');
-			if( cal.get(Calendar.MINUTE)>=10 ) sb.append(cal.get(Calendar.MINUTE)).append(':');
-			else sb.append('0').append(cal.get(Calendar.MINUTE)).append(':');
-			if( cal.get(Calendar.SECOND)>=10 ) sb.append(cal.get(Calendar.SECOND)).append("Z\"}");
-			else sb.append('0'). append(cal.get(Calendar.SECOND)).append("Z\"}");
+			if( cal.get(Calendar.HOUR)<10 ) sb.append('0');
+			sb.append(cal.get(Calendar.HOUR)).append(':');
+			if( cal.get(Calendar.MINUTE)<10 ) sb.append('0');
+			sb.append(cal.get(Calendar.MINUTE)).append(':');
+			if( cal.get(Calendar.SECOND)<10 ) sb.append('0');
+			sb.append(cal.get(Calendar.SECOND)).append("Z\"}");
 			writer.println( sb.toString() );
 		}
 
