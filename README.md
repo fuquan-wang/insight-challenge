@@ -23,7 +23,7 @@ java-1.7.0-openjdk.x86_64
 java-1.7.0-openjdk-devel.x86_64
 </pre>
 
-This solution also uses the [json-simple parser](https://code.google.com/archive/p/json-simple/). So please download the [json-simple-1.1.1.jar file](http://json-simple.googlecode.com/files/json-simple-1.1.1.jar) to the director `./jars/`, which is already included in this solution.
+This solution also uses the [json-simple parser](https://code.google.com/archive/p/json-simple/). So please download the [json-simple-1.1.1.jar file](http://json-simple.googlecode.com/files/json-simple-1.1.1.jar) to the director `./src/`, which is already included in this solution.
 
 ##Code Introduction
 
