@@ -84,20 +84,23 @@ public class VemonTransParser {
 		int idx = json.indexOf( pattern, idxbrace );
 		if( idx<0 )
 			throw new ParseException("Cannot find the pattern "+pattern+" in JSON string "+json, idxbrace);
-		int idxend = json.indexOf( ',', idx+pattern.length() );
-		if( idxend<0 )
-			idxend = json.indexOf( '}', idx+pattern.length() );
-		String str = json.substring( idx, idxend );
-		if( str.indexOf(':')<0 )
-			throw new ParseException("No valid semicolon separator "+" in JSON string "+json, idx);
 
-		int idxlo = str.indexOf( '"', pattern.length() );
+		int idxlo = json.indexOf( '"', pattern.length()+idx );
+		while( idxlo>0 && json.charAt(idxlo-1)=='\\' ) idxlo = json.indexOf( '"', idxlo+1 );
 		if( idxlo<0 ) 
 			throw new ParseException("Cannot find a \" following "+pattern+" in JSON string "+json, idx);
-		int idxhi = str.indexOf( '"', idxlo+1 );
+		int idxhi = json.indexOf( '"', idxlo+1 );
+		while( idxhi>0 && json.charAt(idxhi-1)=='\\' ) idxhi = json.indexOf( '"', idxhi+1 );
 		if( idxhi<0 ) 
 			throw new ParseException("Cannot find the second \" following "+pattern+" in JSON string "+json, idxlo);
 
-		return str.substring( idxlo+1, idxhi );
+		int idxend = json.indexOf( ',', idxhi+1 );
+		if( idxend<0 )
+			idxend = json.indexOf( '}', idxhi+1 );
+		String str = json.substring( idx, idxend );
+		if( str.indexOf(':')<0 )
+			throw new ParseException("No valid semicolon separator in JSON string "+json, idx);
+
+		return json.substring( idxlo+1, idxhi );
 	}
 }
