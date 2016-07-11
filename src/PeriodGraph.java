@@ -52,22 +52,26 @@ public class PeriodGraph {
 	 * @param actor The actor value field of the JSON string
 	 * @param target The target value field of the JSON string
 	 * @param time The time value field of the JSON string
-	 * @throws ParseException in case of invalid inputs: empty fileds, non-standard timestamp, same person transactions
+	 * @return The add operation is successful or not
 	 */
-	public void addTransaction( String actor, String target, String time ) throws ParseException {
+	public boolean addTransaction( String actor, String target, String time ) {
 		// Check the validity of the inputs:
 		// Empty fields will or same person transfers will not be counted
-		if( actor.length()==0 || target.length()==0 || time.length()==0 ) 
-			throw new ParseException("At least one field is empty, no new output generated", 0);
+		if( actor.length()==0 || target.length()==0 || time.length()==0 ) {
+			System.out.println("At least one field is empty, no new output generated");
+			return false;
+		}
 		if( actor.equals(target) ) {
 			System.out.println("Are you sure to send the money from "+actor+" to "+target+" (the same person)?");
-			throw new ParseException("The actor and target fields are the same, no new output generated", 0);
+			return false;
 		}
 
 		long timeInSeconds = toSeconds(time);
-		if( timeInSeconds == (long)(-period) )
-			throw new ParseException("The create_time field is not in the format of yyyy-mm-ddTHH:MM:SSZ, no new output generated", 0);
-		if ( lastTime-timeInSeconds>=period ) return; // Do nothing if the new item is more than period seconds ago
+		if( timeInSeconds == (long)(-period) ){
+			System.out.println("The create_time field is not in the format of yyyy-mm-ddTHH:MM:SSZ, no new output generated");
+			return false;
+		}
+		if ( lastTime-timeInSeconds>=period ) return true; // Do nothing if the new item is more than period seconds ago
 
 		// The graph is undirected, so a connection is presented as a concatenated string
 		// in alphabetical order, which is separated with a special character
@@ -91,7 +95,7 @@ public class PeriodGraph {
 				if( timeMap.containsKey(oldTime) ) timeMap.get( oldTime ).remove(str);
 				checkMap.put( str, timeInSeconds );
 			}
-			return;
+			return true;
 		}
 		checkMap.put( str, timeInSeconds );
 
@@ -121,6 +125,8 @@ public class PeriodGraph {
 		if( prevTarget>0 ) mc.remove( prevTarget );
 		mc.add( transMap.get(actor).size() );
 		mc.add( transMap.get(target).size() );
+
+		return true;
 	}
 
 	/**

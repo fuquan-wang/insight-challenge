@@ -6,6 +6,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.text.*;
+import org.json.simple.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.parser.ParseException;
+import org.json.simple.parser.JSONParser;
 
 /**
  * <h1>median_degree</h1>
@@ -16,6 +20,7 @@ import java.text.*;
  */
 public class median_degree {
 	public static void main(String[] args){
+		JSONParser jsonparser = new JSONParser();
 		Path file = Paths.get("venmo_input/venmo-trans.txt");
 
 		PrintWriter writer = null;
@@ -30,13 +35,18 @@ public class median_degree {
 		try (BufferedReader reader = Files.newBufferedReader(file, StandardCharsets.UTF_8)) {
 			String line = null;
 			while ((line = reader.readLine()) != null) {
-				VemonTransParser vtp = new VemonTransParser(line);
-				try{
-					graph.addTransaction( vtp.getActor(), vtp.getTarget(), vtp.getTime() );
-					writer.format( "%.2f", graph.getMedian() );
-					writer.println();
-				} catch (ParseException ex){
-					System.out.println("The JSON "+line+" cannot be parsed correctly, no new output");
+				try {
+					JSONObject jsonObject = (JSONObject) jsonparser.parse(line);
+					String createTime = (String) jsonObject.get("created_time");
+					String actor = (String) jsonObject.get("actor");
+					String target = (String) jsonObject.get("target");
+					if( graph.addTransaction( actor, target, createTime ) ){
+						writer.format( "%.2f", graph.getMedian() );
+						writer.println();
+					}
+				} catch (ParseException pe){
+					System.out.println("position: " + pe.getPosition());
+					System.out.println(pe);
 				}
 			}
 		} catch (IOException x) {

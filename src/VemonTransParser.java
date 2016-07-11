@@ -97,11 +97,9 @@ public class VemonTransParser {
 		int idxend = json.indexOf( ',', idxhi+1 );
 		if( idxend<0 )
 			idxend = json.indexOf( '}', idxhi+1 );
-		if( idxend<0 )
-			throw new ParseException("Cannot find , or } after pattern "+pattern+" in JSON string "+json, idxlo);
 		String str = json.substring( idx, idxend );
 		if( str.indexOf(':')<0 )
-			throw new ParseException("No valid colon separator in JSON string "+json, idx);
+			throw new ParseException("No valid semicolon separator in JSON string "+json, idx);
 
 		return json.substring( idxlo+1, idxhi );
 	}
