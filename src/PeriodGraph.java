@@ -198,7 +198,7 @@ public class PeriodGraph {
 	/**
 	 * This method updates the <code>MedianCalculator</code> in an efficient way.
 	 * The vertex to degree map is converted to number-of-edges to count map.
-	 * Then the maps before and after removal is compared so that only the degree
+	 * Then the maps before and after removal are compared so that only the degree
 	 * changes will be propagated to <code>MedianCalculator</code> to minimize the 
 	 * add and remove function calls.
 	 */
