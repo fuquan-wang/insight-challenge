@@ -33,7 +33,7 @@ public class PeriodGraph {
 
 	/**
 	 * This construction initializes all maps and the <code>MedianCalculator</code>.
-	 * @param period The length of the time to keep transaction records
+	 * @param period The length of the time in seconds to keep transaction records
 	 */
 	public PeriodGraph( int period ){
 		lastTime=0;
@@ -69,7 +69,7 @@ public class PeriodGraph {
 			throw new ParseException("The create_time field is not in the format of yyyy-mm-ddTHH:MM:SSZ, no new output generated", 0);
 		if ( lastTime-timeInSeconds>=period ) return; // Do nothing if the new item is more than period seconds ago
 
-		// The graph is not undirected, so a connection is presented as a concatenated string
+		// The graph is undirected, so a connection is presented as a concatenated string
 		// in alphabetical order, which is separated with a special character
 		StringBuilder sb = new StringBuilder();
 		if( actor.compareTo(target)<0 ) sb.append(actor).append('\0').append(target);
@@ -83,7 +83,7 @@ public class PeriodGraph {
 			timeMap.put( timeInSeconds, new HashSet<String>() );
 		timeMap.get(timeInSeconds).add(str);
 
-		// If the edge exists, update the time stamp only and do not further update  the graph,
+		// If the edge exists, only update the time stamp and do not further update  the graph,
 		// otherwise continue to update all stuffs
 		if( checkMap.containsKey( str ) ){
 			long oldTime = checkMap.get(str);
