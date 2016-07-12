@@ -57,7 +57,7 @@ public class PeriodGraph {
 	public boolean addTransaction( String actor, String target, String time ) {
 		// Check the validity of the inputs:
 		// Empty fields will or same person transfers will not be counted
-		if( actor.length()==0 || target.length()==0 || time.length()==0 ) {
+		if( actor==null || actor.length()==0 || target==null || target.length()==0 || time==null || time.length()==0 ) {
 			System.out.println("At least one field is empty, no new output generated");
 			return false;
 		}
@@ -136,7 +136,7 @@ public class PeriodGraph {
 	public double getMedian(){
 		return mc.findMedian();
 	}
-	
+
 	/**
 	 * This method parses the time String to a long in seconds.
 	 * @param time The input time string
