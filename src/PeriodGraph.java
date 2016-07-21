@@ -96,8 +96,6 @@ public class PeriodGraph {
 		checkMap.put( str, timeInSeconds );
 
 		// Add the new edge into the timeMap with the current tiem stamp
-		// Compatible with Java 8. Using the old way for backward compatibility
-		// timeMap.getOrDefault( timeInSeconds, new HashSet<String>() ).add( str );
 		if ( !timeMap.containsKey( timeInSeconds ) )
 			timeMap.put( timeInSeconds, new HashSet<String>() );
 		timeMap.get(timeInSeconds).add(str);
@@ -113,9 +111,6 @@ public class PeriodGraph {
 		int prevTarget = transMap.containsKey(target) ? transMap.get(target).size() : 0;
 
 		// Add the transaction
-		// Compatible with Java 8. Using the old way for backward compatibility
-		// transMap.getOrDefault( actor, new HashSet<String>() ).add( target );
-		// transMap.getOrDefault( target, new HashSet<String>() ).add( actor );
 		if( !transMap.containsKey( actor ) )
 			transMap.put( actor, new HashSet<String>() );
 		transMap.get(actor).add(target);
