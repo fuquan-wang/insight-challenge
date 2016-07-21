@@ -85,7 +85,10 @@ public class PeriodGraph {
 		if( checkMap.containsKey( str ) ){
 			long oldTime = checkMap.get(str);
 			if( oldTime<timeInSeconds ){
-				if( timeMap.containsKey(oldTime) ) timeMap.get( oldTime ).remove(str);
+				if( timeMap.containsKey(oldTime) ){
+					timeMap.get( oldTime ).remove(str);
+					if( timeMap.get( oldTime ).isEmpty() ) timeMap.remove( oldTime );
+				}
 				checkMap.put( str, timeInSeconds );
 				if ( !timeMap.containsKey( timeInSeconds ) )
 					timeMap.put( timeInSeconds, new HashSet<String>() );
