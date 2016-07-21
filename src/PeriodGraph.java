@@ -80,24 +80,27 @@ public class PeriodGraph {
 		else sb.append(target).append('\0').append(actor);
 		String str = new String(sb.toString());
 
+		// If the edge exists, only update the time stamp and do not further update  the graph,
+		// otherwise continue to update all stuffs
+		if( checkMap.containsKey( str ) ){
+			long oldTime = checkMap.get(str);
+			if( oldTime<timeInSeconds ){
+				if( timeMap.containsKey(oldTime) ) timeMap.get( oldTime ).remove(str);
+				checkMap.put( str, timeInSeconds );
+				if ( !timeMap.containsKey( timeInSeconds ) )
+					timeMap.put( timeInSeconds, new HashSet<String>() );
+				timeMap.get(timeInSeconds).add(str);
+			}
+			return true;
+		}
+		checkMap.put( str, timeInSeconds );
+
 		// Add the new edge into the timeMap with the current tiem stamp
 		// Compatible with Java 8. Using the old way for backward compatibility
 		// timeMap.getOrDefault( timeInSeconds, new HashSet<String>() ).add( str );
 		if ( !timeMap.containsKey( timeInSeconds ) )
 			timeMap.put( timeInSeconds, new HashSet<String>() );
 		timeMap.get(timeInSeconds).add(str);
-
-		// If the edge exists, only update the time stamp and do not further update  the graph,
-		// otherwise continue to update all stuffs
-		if( checkMap.containsKey( str ) ){
-			long oldTime = checkMap.get(str);
-			if( oldTime!=timeInSeconds ){
-				if( timeMap.containsKey(oldTime) ) timeMap.get( oldTime ).remove(str);
-				checkMap.put( str, timeInSeconds );
-			}
-			return true;
-		}
-		checkMap.put( str, timeInSeconds );
 
 		// Check and remove the old entries only if the new time stamp is more recent
 		if ( timeInSeconds>lastTime ){
