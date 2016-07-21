@@ -28,7 +28,7 @@ public class MedianCalculator {
 	/**
 	 * The method is called after adding or removing a number in this instance,
 	 * which makes sure the two heaps are balanced: the max-heap has at most one 
-	 * element than the min-heap and the min-heap is not larger than the max-heap
+	 * element more than the min-heap and the min-heap is not larger than the max-heap
 	 */
 	private void adjust(){
 		if( lo.size()>hi.size()+1 )
@@ -40,7 +40,7 @@ public class MedianCalculator {
 	/**
 	 * This method adds a number to this instance: adding to max-heap if only the 
 	 * number is smaller than the heap's maximum value, other to the min-heap.
-	 * The time complexity is O(logN) where N is the current elements in this instance
+	 * The time complexity is O(logN) where N is the number of current elements in this instance
 	 * @param num the number to be added
 	 */
 	public void add( int num ){
